@@ -11,6 +11,7 @@ export default function FormConectar({ FormData, setForm, navigation }) {
     <Formulario onSubmit={(event) =>{
       event.preventDefault()
       navigation.next()
+      console.log(FormData)
     }}>
       <FormularioHeader>
         <Image src={arrow} onClick={() => navigation.previous()} alt="voltar"></Image>

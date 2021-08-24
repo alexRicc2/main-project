@@ -39,7 +39,6 @@ export default function UseForm() {
   
   
   const props = { FormData, setForm, navigation, validacoes}
-
   switch (step.id) {
     case "personalData":
       return (
