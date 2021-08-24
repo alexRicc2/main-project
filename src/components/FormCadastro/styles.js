@@ -8,10 +8,9 @@ export const Formulario = styled.form`
   // align-items: center;
   background-color: #fff;
   width: 600px;
-  max-width: 50%;
+  max-width: 100%;
   @media screen and (max-width:768px) {
       width: 100%;
-      max-width: unset;
       margin-bottom: 1rem;
   }
 `
@@ -23,6 +22,7 @@ export const FormularioHeader = styled.div`
   margin-bottom: 1rem;
   justify-content: space-between;
   position: relative;
+  order: -1;
   h2{
     text-align: center;
     font-size: 2rem;
@@ -32,8 +32,8 @@ export const FormularioHeader = styled.div`
     position: relative;
   }
   @media screen and (max-width: 768px){
-    h1{
-      font-size: 1.5rem;
+    h2{
+      font-size: 1.3rem;
     }
   }
 `

@@ -29,21 +29,7 @@ export default function Home() {
 .then((respostaCompleta) => {
   const usuarios = respostaCompleta.data.allRegisters
   console.log(usuarios)})
-  })
-  // const DadosFormatado = {
-  //   nome: 'teste dentro do index',
-  //   email: 'index@gmail.com',
-  //   cpf: 12323132,
-  //   cell: 453243,
-  //   plano: 0,
-  //   numcartao: 42232,
-  //   titular: 'pedrozinh',
-  //   sobrenome: 'tpalha',
-  //   cod: 333,
-  //   username: 'tktei',
-  //   senha: '123'
-  // }
-  
+  })  
   
   return (
     <>

@@ -28,67 +28,69 @@ const Cartoes = styled.div`
 
 `
 
-export default function FormPagamento({ FormData, setForm, navigation }) {
+export default function FormPagamento({ FormData, setForm, proximo, anterior }) {
 
   const { numCartao, titular, sobrenome, codSeguranca } = FormData
   return (
-    <Formulario onSubmit={(event) =>{
-      event.preventDefault()
-      navigation.next()
-    }}>
+    <>
       <FormularioHeader>
-        <Image src={arrow} onClick={() => navigation.previous()} alt="voltar"></Image>
+        <Image src={arrow} onClick={() => anterior()} alt="voltar" width="24px" height="24px"></Image>
         <h2 className="cadastroFormulario__titulo">Informações de Pagamento</h2>
       </FormularioHeader>
-      <Cartoes>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </Cartoes>
-      <TextField
-        id="outlined-basic"
-        label="Numero do Cartao"
-        variant="outlined"
-        value={numCartao}
-        name="numCartao"
-        onChange={setForm}
-        required
-        margin="normal" />
+      <Formulario onSubmit={(event) => {
+        event.preventDefault()
+        proximo()
+      }}>
+        <Cartoes>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </Cartoes>
+        <TextField
+          id="outlined-basic"
+          label="Numero do Cartao"
+          variant="outlined"
+          value={numCartao}
+          name="numCartao"
+          onChange={setForm}
+          required
+          margin="normal" />
 
-      <TextField
-        id="outlined-basic"
-        label="Nome do titular"
-        variant="outlined"
-        value={titular}
-        name="titular"
-        onChange={setForm}
-        required
-        margin="normal" />
+        <TextField
+          id="outlined-basic"
+          label="Nome do titular"
+          variant="outlined"
+          value={titular}
+          name="titular"
+          onChange={setForm}
+          required
+          margin="normal" />
 
-      <TextField
-        id="outlined-basic"
-        label="Sobrenome"
-        variant="outlined"
-        value={sobrenome}
-        name="sobrenome"
-        onChange={setForm}
-        required
-        margin="normal" />
+        <TextField
+          id="outlined-basic"
+          label="Sobrenome"
+          variant="outlined"
+          value={sobrenome}
+          name="sobrenome"
+          onChange={setForm}
+          required
+          margin="normal" />
 
-      <TextField
-        id="outlined-basic"
-        label="Código de segurança"
-        variant="outlined"
-        value={codSeguranca}
-        name="codSeguranca"
-        onChange={setForm}
-        required
-        margin="normal" />
+        <TextField
+          id="outlined-basic"
+          label="Código de segurança"
+          variant="outlined"
+          value={codSeguranca}
+          name="codSeguranca"
+          onChange={setForm}
+          required
+          margin="normal" />
 
-      <FormButton type="submit" className="cadastroFormulario__submit">Continuar cadastro</FormButton>
-    </Formulario>
+        <FormButton type="submit" className="cadastroFormulario__submit">Continuar cadastro</FormButton>
+      </Formulario>
+    </>
   )
 }
