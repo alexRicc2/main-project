@@ -16,6 +16,7 @@ const Wrapper = styled.div`
   margin-right: 1rem;
   @media screen and (max-width: 768px){
     max-width: 100%;
+    width: 100%;
     margin-right: unset;
   }
 `
