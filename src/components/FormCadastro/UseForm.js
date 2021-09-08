@@ -44,13 +44,6 @@ export default function UseForm() {
   function anterior(){
     setEtapaAtual(etapaAtual - 1);
   }
-  const steps = [
-    { id: 'personalData' },
-    { id: 'Pagamento' },
-    { id: 'Conectar' },
-    { id: 'Sucesso'},
-    { id: 'erro'}
-  ]
   
   const [FormData, setForm] = useForm(defaultData);
   
