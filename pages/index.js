@@ -27,8 +27,7 @@ export default function Home() {
   }` })
 }).then((response) => response.json())
 .then((respostaCompleta) => {
-  const usuarios = respostaCompleta.data.allRegisters
-  console.log(usuarios)})
+  console.log(respostaCompleta)})
   })  
   
   return (
@@ -40,7 +39,6 @@ export default function Home() {
       <Depoimentos/>
       <FormLogin/>
       <Video/>
-      <PlanoSelection/>
       <Footer/>
     </>
   )

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useState, useEffect } from 'react';
 
 const PlanosWrapper = styled.div`
   background: linear-gradient(to right, #E2E2E2, #C9D6FF); 
@@ -109,53 +110,62 @@ const PlanoEtiqueta = styled.span`
 `
 
 export default function PlanoSelection() {
+
+  const [planos, setPlanos] = useState([])
+
+  useEffect(function () {
+
+    fetch('https://graphql.datocms.com/', {
+      method: 'POST',
+      headers: {
+        'authorization': '098d23c247aae4c160970a002bb5b9',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({
+        "query": `query {
+    allPlanos {
+      title
+      subtitle
+      price
+      proper1
+      proper2
+      proper3
+      proper4
+      proper5
+    }
+  }` })
+    }).then((response) => response.json())
+      .then((respostaCompleta) => {
+        const planosVindosDoDato = respostaCompleta.data.allPlanos
+        setPlanos(planosVindosDoDato)
+        console.log(planosVindosDoDato)
+      })
+  }, [])
+
   return (
     <PlanosWrapper>
       <PlanoSelectionTitle>Desperte o músico que há dentro de você!</PlanoSelectionTitle>
       <Planos>
-        <Plano>
-          <PlanoTitle>Curso 1</PlanoTitle>
-          <PlanoSubTitle>Subtitulo</PlanoSubTitle>
-          <PlanoPrice>R$00,00</PlanoPrice>
-          <ul className="plano__atributos">
-            <li>Propriedade1</li>
-            <li>Propriedade2</li>
-            <li>Propriedade3</li>
-            <li>Propriedade4</li>
-            <li>Propriedade5</li>
-            <li>Propriedade6</li>
-          </ul>
-          <a href="/cadastro"><button>Matricule-se</button></a>
-        </Plano>
-        <Plano>
-          <PlanoTitle>Curso 2</PlanoTitle>
-          <PlanoSubTitle>Subtitulo</PlanoSubTitle>
-          <PlanoPrice>R$00,00</PlanoPrice>
-          <ul className="plano__atributos">
-            <li>Propriedade1</li>
-            <li>Propriedade2</li>
-            <li>Propriedade3</li>
-            <li>Propriedade4</li>
-            <li>Propriedade5</li>
-            <li>Propriedade6</li>
-          </ul>
-          <a href="/cadastro"><button>Matricule-se</button></a>
-        </Plano>
-        <Plano>
-          <PlanoTitle>Curso 3</PlanoTitle>
-          <PlanoEtiqueta>Popular</PlanoEtiqueta>
-          <PlanoSubTitle>Subtitulo</PlanoSubTitle>
-          <PlanoPrice>R$00,00</PlanoPrice>
-          <ul className="plano__atributos">
-            <li>Propriedade1</li>
-            <li>Propriedade2</li>
-            <li>Propriedade3</li>
-            <li>Propriedade4</li>
-            <li>Propriedade5</li>
-            <li>Propriedade6</li>
-          </ul>
-          <a href="/cadastro"><button>Matricule-se</button></a>
-        </Plano>
+        {
+          planos.map((plano, index) => {
+            return (
+              <Plano key={index}>
+                <PlanoTitle>{plano.title}</PlanoTitle>
+                <PlanoSubTitle>{plano.subtitle}</PlanoSubTitle>
+                <PlanoPrice>{`R$${plano.price}`}</PlanoPrice>
+                <ul>
+                  <li>{plano.proper1}</li>
+                  <li>{plano.proper2}</li>
+                  <li>{plano.proper3}</li>
+                  <li>{plano.proper4}</li>
+                  <li>{plano.proper5}</li>
+                </ul>
+                <a href="/cadastro"><button>Matricule-se</button></a>
+              </Plano>
+            )
+          })
+        }
       </Planos>
     </PlanosWrapper>
   )
