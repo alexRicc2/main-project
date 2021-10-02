@@ -30,6 +30,18 @@ const validaCell = function(cell){
   }
   return {valido: true, texto: ""}
 }
+const validaNumCartao = function(numCartao){
+  if(numCartao.length < 14){
+    return {valido: false, texto: 'numero muito curto- 14 digitos ou mais'}
+  }
+  return {valido: true, texto: ""}
+}
+const validaCodSeguranca = function(codSeguranca){
+  if(codSeguranca.length !== 3){
+    return {valido: false, texto: 'numero invalido, Códigos de seguranças possuem 3 números'}
+  }
+  return {valido: true, texto: ""}
+}
 
 
-export const validacoes = { validaCpf, validaNome, validaEmail, validaCell}
+export const validacoes = { validaCpf, validaNome, validaEmail, validaCell, validaNumCartao, validaCodSeguranca}

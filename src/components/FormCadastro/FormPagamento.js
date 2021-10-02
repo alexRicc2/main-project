@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { TextField } from '@material-ui/core';
 import arrow from "../../images/arrow.svg";
 import Image from "next/image"
@@ -28,9 +28,24 @@ const Cartoes = styled.div`
 
 `
 
-export default function FormPagamento({ FormData, setForm, proximo, anterior }) {
+export default function FormPagamento({ FormData, setForm, proximo, anterior, validacoes }) {
 
+  const [erros, setErros] = useState(
+    {
+      numCartao: { valido: true, texto: "" },
+      nomeTitular: { valido: true, texto: "" },
+      sobrenome: { valido: true, texto: "" },
+      codSeguranca: { valido: true, texto: "" }
+    }
+  )
   const { numCartao, titular, sobrenome, codSeguranca } = FormData
+
+  function possoEnviar(){
+    for(let campo in erros){
+      if(!erros[campo].valido) return false
+    }
+    return true
+  }
   return (
     <>
       <FormularioHeader>
@@ -39,7 +54,7 @@ export default function FormPagamento({ FormData, setForm, proximo, anterior }) 
       </FormularioHeader>
       <Formulario onSubmit={(event) => {
         event.preventDefault()
-        proximo()
+        if(possoEnviar())proximo()
       }}>
         <Cartoes>
           <span></span>
@@ -55,6 +70,14 @@ export default function FormPagamento({ FormData, setForm, proximo, anterior }) 
           variant="outlined"
           value={numCartao}
           name="numCartao"
+          error={!erros.numCartao.valido}
+          helperText={erros.numCartao.texto}
+          onBlur={()=> {
+            const ehValido = validacoes.validaNumCartao(numCartao)
+            setErros(erros => ({
+              ...erros, numCartao: ehValido
+            }))
+          }}
           onChange={setForm}
           required
           margin="normal" />
@@ -66,6 +89,14 @@ export default function FormPagamento({ FormData, setForm, proximo, anterior }) 
           value={titular}
           name="titular"
           onChange={setForm}
+          error={!erros.nomeTitular.valido}
+          helperText={erros.nomeTitular.texto}
+          onBlur={() => {
+            const ehValido = validacoes.validaNome(titular)
+            setErros(erros => ({
+              ...erros, nomeTitular: ehValido
+            }))
+          }}
           required
           margin="normal" />
 
@@ -76,6 +107,14 @@ export default function FormPagamento({ FormData, setForm, proximo, anterior }) 
           value={sobrenome}
           name="sobrenome"
           onChange={setForm}
+          error={!erros.sobrenome.valido}
+          helperText={erros.sobrenome.texto}
+          onBlur={() => {
+            const ehValido = validacoes.validaNome(sobrenome)
+            setErros(erros => ({
+              ...erros, sobrenome: ehValido
+            }))
+          }} 
           required
           margin="normal" />
 
@@ -86,6 +125,14 @@ export default function FormPagamento({ FormData, setForm, proximo, anterior }) 
           value={codSeguranca}
           name="codSeguranca"
           onChange={setForm}
+          error={!erros.codSeguranca.valido}
+          helperText={erros.codSeguranca.texto}
+          onBlur={() => {
+            const ehValido = validacoes.validaCodSeguranca(codSeguranca)
+            setErros(erros => ({
+              ...erros, codSeguranca: ehValido
+            }))
+          }} 
           required
           margin="normal" />
 

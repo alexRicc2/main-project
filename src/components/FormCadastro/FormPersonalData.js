@@ -22,8 +22,12 @@ export default function FormPersonalData({ FormData, setForm, validacoes, proxim
       cpf: { valido: true, texto: "" },
       cell: { valido: true, texto: "" }
     })
-  console.log()
-
+  function possoEnviar(){
+    for(let campo in erros){
+      if(!erros[campo].valido)return false
+    }
+    return true
+  } 
   const handleChange = (e) => {
     setPagamento(e.target.value);
     console.log(pagamento)
@@ -35,7 +39,7 @@ export default function FormPersonalData({ FormData, setForm, validacoes, proxim
       </FormularioHeader>
       <Formulario autoComplete="false" onSubmit={(event) => {
         event.preventDefault()
-        proximo()
+        if(possoEnviar())proximo()
 
       }}>
         <TextField
